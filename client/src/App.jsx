@@ -11,12 +11,12 @@ function App() {
   const [iName, setIName] = useState("");
   const [height, setHeight] = useState(false)
   const [containers, setContainers] = useState([])
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     fetch("http://localhost:3000/data").then((data) => data.json().then(idk => changeFullness(idk)))
-  //   }, 1000)
+  useEffect(() => {
+    setInterval(() => {
+      fetch("http://localhost:3000/data").then((data) => data.json().then(idk => changeFullness(idk)))
+    }, 1000)
 
-  // }, [data])
+  }, [data])
 
   // useEffect(() => {
   //   console.log("banana")
@@ -68,7 +68,7 @@ function App() {
 
   return (
     <div>
-      <input onChange={(e) => changeFullness(e.target.value)} />
+      {/* <input onChange={(e) => changeFullness(e.target.value)} /> */}
       <img src={title} width={300} />
 
       <header>Your Containers</header>
@@ -81,7 +81,7 @@ function App() {
           <label className='iCChild'>Height (cm)</label>
           <input className='iCChild' value={iH} onChange={(e) => setIH(e.target.value)} />
         </div>
-        <button className='iCChild' type='button' onClick={() => setIH(data)}>Calibrate</button>
+        <button className='iCChild' type='button' onClick={() => setIH(Math.floor(data))}>Calibrate</button>
         <button className='iCChild' type='button' onClick={addContainer}>Add Container</button>
       </div>
       {/* {containers.map(item => (<div>
