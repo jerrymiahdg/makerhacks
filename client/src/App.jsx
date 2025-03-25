@@ -67,22 +67,25 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='font-winky-sans'>
       {/* <input onChange={(e) => changeFullness(e.target.value)} /> */}
-      <img src={title} width={300} />
-
-      <header>Your Containers</header>
-      <div className='inputContainer'>
-        <div className='midinput'>
+      {/* <img src={title} width={300} /> */}
+      <div className='w-full p-5 border-b border-neutral-300 flex justify-between items-center'>
+              <p className='text-3xl font-bold'>Trash Management</p>
+              <p className='text-2xl '>Containers</p>
+      </div>
+      <header>Add Container</header>
+      <div className='inputContainer flex flex-col items-center'>
+        <div className='midinput flex gap-5 items-center border-neutral-300'>
           <label className='iCChild'>Name</label>
-          <input className='iCChild' value={iName} onChange={(e) => setIName(e.target.value)} />
+          <input className='iCChild border' value={iName} onChange={(e) => setIName(e.target.value)} />
         </div>
-        <div className='midinput'>
+        <div className='midinput flex gap-5 items-center border-neutral-300'>
           <label className='iCChild'>Height (cm)</label>
-          <input className='iCChild' value={iH} onChange={(e) => setIH(e.target.value)} />
+          <input className='iCChild border' value={iH} onChange={(e) => setIH(e.target.value)} />
         </div>
-        <button className='iCChild' type='button' onClick={() => setIH(Math.floor(data))}>Calibrate</button>
-        <button className='iCChild' type='button' onClick={addContainer}>Add Container</button>
+        <button className='iCChild w-full cursor-pointer' type='button' onClick={() => setIH(Math.floor(data))}>Calibrate</button>
+        <button className='iCChild w-full cursor-pointer' type='button' onClick={addContainer}>Add Container</button>
       </div>
       {/* {containers.map(item => (<div>
         <p>{item.data}</p>
