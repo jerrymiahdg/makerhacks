@@ -7,6 +7,9 @@ import title from './assets/Title.png'
 function App() {
   const [count, setCount] = useState(0)
   const [data, setData] = useState(0)
+  const [newData, setNewData] = useState([
+    {"ID":2352, "Fill sensor 1":12, "Fill sensor 2":23423, "Lat":124.114, "Lng":53.51, "":2},    {"ID":2352, "Fill sensor 1":12, "Fill sensor 2":23423, "Lat":124.114, "Lng":53.51, "":2}
+  ])
   const [iH, setIH] = useState(0)
   const [iName, setIName] = useState("");
   const [height, setHeight] = useState(false)
@@ -15,6 +18,8 @@ function App() {
     setInterval(() => {
       fetch("http://localhost:3000/data").then((data) => data.json().then(idk => changeFullness(idk)))
     }, 1000)
+
+    fetch("https://script.googleusercontent.com/a/macros/student.musd.org/echo?user_content_key=AehSKLiqxKO_SRRPWRs2qHHY4xfSm-oGAQD8rg6UInx-Y92n4qc-avxCvZzFvh6-uowFrMM6BWITVis8EICUKWj3ahtWEpduBqvGwSqtXLhFSDp92k3Z8id_AgH24vQvGxYtM1kQZ9-_QruJ0uUcHoKwU3poFoSMis-YfraqSuZufkI38svdODyZ801HbnOovbgWQGwKj9Pw4mbIuDcDtbWbNyA_M6b3AV2pYcCtLrVky1_fHOxg-wGcb_WDNqvH4kWUDeBr7ZqbsC-iHuGlUdchEUlvnBbHxCehPmdlJ_9BbFQtd6aGCHr1i-SZiK7hFA&lib=MHx8C4qkf0f6Jg99vxj_yuhI1Gs6Nkp1M").then((data) => data.json().then(data => setNewData(data)))
 
   }, [data])
 
