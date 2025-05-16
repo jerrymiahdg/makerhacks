@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import title from './assets/Title.png'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,11 +12,11 @@ function App() {
   const [height, setHeight] = useState(false)
   const [containers, setContainers] = useState([])
   useEffect(() => {
-    setInterval(() => {
-      fetch("http://localhost:3000/data").then((data) => data.json().then(idk => changeFullness(idk)))
-    }, 1000)
+    // setInterval(() => {
+    //   fetch("http://localhost:3000/data").then((data) => data.json().then(idk => changeFullness(idk)))
+    // }, 1000)
 
-    fetch("https://script.googleusercontent.com/a/macros/student.musd.org/echo?user_content_key=AehSKLiqxKO_SRRPWRs2qHHY4xfSm-oGAQD8rg6UInx-Y92n4qc-avxCvZzFvh6-uowFrMM6BWITVis8EICUKWj3ahtWEpduBqvGwSqtXLhFSDp92k3Z8id_AgH24vQvGxYtM1kQZ9-_QruJ0uUcHoKwU3poFoSMis-YfraqSuZufkI38svdODyZ801HbnOovbgWQGwKj9Pw4mbIuDcDtbWbNyA_M6b3AV2pYcCtLrVky1_fHOxg-wGcb_WDNqvH4kWUDeBr7ZqbsC-iHuGlUdchEUlvnBbHxCehPmdlJ_9BbFQtd6aGCHr1i-SZiK7hFA&lib=MHx8C4qkf0f6Jg99vxj_yuhI1Gs6Nkp1M").then((data) => data.json().then(data => setNewData(data)))
+    fetch("https://script.googleusercontent.com/a/macros/student.musd.org/echo?user_content_key=AehSKLhjZnj22rD_ZDASVfQ1VQiia1bBa8cOl_G650KyydNR62OwcxkvAX7u_77F1iRMUw9fVnjBG3oL1E-PwRwV_eqsmp5BJn2HKXrseEFinmMl33Hty9YW0P6GQn-XbuVw6sEcuN4U7aJMBDjSIhW_sBoueAfh8IddwJXBdLV-94aE-HTWyoKvQucxxDMeenuGajraZ5-nn5jekGFQMDQR8FznCDMOqiUV10QPJtR3xO2On1yCXCiEbIXF7EX5PWKB9dHXuQZhlkJGQSatfhJarr9vjoo0_5_LcXQ5mK6Fm8ihWBsKN9icM20pvaSmqQ&lib=MHx8C4qkf0f6Jg99vxj_yuhI1Gs6Nkp1M").then((data) => data.json().then(data => setNewData(data)))
 
   }, [data])
 
@@ -80,6 +77,7 @@ function App() {
               <p className='text-2xl '>Containers</p>
       </div>
       <header>Add Container</header>
+      <div>{newData[0].ID}</div>
       <div className='inputContainer flex flex-col items-center'>
         <div className='midinput flex gap-5 items-center border-neutral-300'>
           <label className='iCChild'>Name</label>
