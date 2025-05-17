@@ -21,14 +21,14 @@ header {
 }
 
 .tile {
-  background-color: #F0EFEF;
+  background-color: #f0efef;
   border-radius: 25px;
   padding: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
-  aspect-ratio:1/1;
+  aspect-ratio: 1/1;
   /* position: absolute;
   top: 0;
   left: 0;
@@ -72,7 +72,7 @@ header {
 }
 
 #filling {
-  background-color: #6D9BE1;
+  background-color: #6d9be1;
   flex-grow: 1;
   height: 50%;
 }
@@ -138,6 +138,7 @@ button {
   font-family: inherit;
   border-color: gray;
   border-style: solid;
+  cursor: pointer;
 }
 
 .inputContainer {
@@ -151,3 +152,15 @@ button {
 /* .iCChild {
   width: 50%;
 } */
+
+.edit-btn {
+  width: fit-content;
+  font-size: small;
+}
+
+.edit-name {
+  padding: 0;
+  border-bottom-width: 1px;
+  border-radius: 0;
+  color: gray;
+}
