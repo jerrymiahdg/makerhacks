@@ -5,26 +5,26 @@ function App() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState(0);
   const [newData, setNewData] = useState([
-    {
-      ID: 12345,
-      Name: "Set Name",
-      "Fill level": 30,
-      Latitude: 38,
-      Longitude: -122,
-      Height: 40,
-      Percent: 100 - Math.round((Number(30) / 40) * 100),
-      Editing: false,
-    },
-    {
-      ID: 54321,
-      Name: "Set Name",
-      "Fill level": 40,
-      Latitude: 40,
-      Longitude: -120,
-      Height: 50,
-      Percent: 100 - Math.round((Number(40) / 50) * 100),
-      Editing: false,
-    },
+    // {
+    //   ID: 12345,
+    //   Name: "Set Name",
+    //   "Fill level": 30,
+    //   Latitude: 38,
+    //   Longitude: -122,
+    //   Height: 40,
+    //   Percent: 100 - Math.round((Number(30) / 40) * 100),
+    //   Editing: false,
+    // },
+    // {
+    //   ID: 54321,
+    //   Name: "Set Name",
+    //   "Fill level": 40,
+    //   Latitude: 40,
+    //   Longitude: -120,
+    //   Height: 50,
+    //   Percent: 100 - Math.round((Number(40) / 50) * 100),
+    //   Editing: false,
+    // },
   ]);
   const [containerEditing, setContainerEditing] = useState(false);
   const [iH, setIH] = useState(0);
@@ -37,30 +37,34 @@ function App() {
     // }, 1000)
     setInterval(() => {
       fetch(
-        "https://script.google.com/macros/s/AKfycbysKrl6-8NcMOPytZgh-_dWFGPjl-GKabV2N98HzYGCZWJMy4oD3Mx7sDm1qT8ju--QWg/exec"
+        // "https://script.google.com/macros/s/AKfycbysKrl6-8NcMOPytZgh-_dWFGPjl-GKabV2N98HzYGCZWJMy4oD3Mx7sDm1qT8ju--QWg/exec"
+        // "https://script.google.com/macros/s/AKfycbysKrl6-8NcMOPytZgh-_dWFGPjl-GKabV2N98HzYGCZWJMy4oD3Mx7sDm1qT8ju--QWg/exec"
+        "https://script.googleusercontent.com/a/macros/student.musd.org/echo?user_content_key=AehSKLhdCxJ0UrYVL9R9XZVmtmGcdl_NTuKnd-_9CGoHv2kqmY6gsYB4bBbIl0buGm4X0yXDkCLuGW2Vrc7Hg6XrOSqbMIrlrtupBs75uIHAV-er0QuaejXJhg2cUocYbaCIDlytWiypf5LPCeGMQ9LrtLg6fwAbmb58m33m24eTVABnmTfq83fD6CHa2irBXs8KLEffxj4l6lt9tkGThtBuF1Eq35meUK3Vs-3FVZ7X1XJCq6S83uAvsyjr9bRwAV8yStUWq_e3A4P73icLoX46IirsmXTSasERiITg_4mhH4XHemduPFm1mMuL6zjpcg&lib=Ma4aRQfq5bpnXaHMG9WBodxfcK2AJdYLn"
       ).then((data) =>
         data.json().then((data) => {
-          setNewData(data);
           console.log(data);
 
           setNewData((prev) => {
             const copy = [...prev];
-            for (item of data) {
+            for (const item of data) {
               let i = 0;
               while (i < copy.length && copy[i].ID != item.ID) i++;
               if (i < copy.length) {
-                copy[i]["Fill level"] = item["Fill level"];
+                copy[i]["Fill level"] = Number(item["Fill level"]);
                 copy[i].Longitude = item.Longitude;
                 copy[i].Latitude = item.Latitude;
-                copy[i].Percent = getPercent(item["Fill level"], item.Height);
+                copy[i].Percent = getPercent(
+                  item["Fill level"],
+                  copy[i].Height
+                );
               } else {
                 copy.push({
                   ID: item.ID,
                   Name: "Set Name",
-                  "Fill level": item["Fill level"],
+                  "Fill level": Number(item["Fill level"]),
                   Latitude: item.Latitude,
                   Longitude: item.Longitude,
-                  Height: item["Fill level"],
+                  Height: Number(item["Fill level"]),
                   Percent: 0,
                 });
               }
