@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import { APIProvider, AdvancedMarker, Map } from "@vis.gl/react-google-maps";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -184,9 +185,10 @@ function App() {
             {/* <div className='tile-out'> */}
             <div className="tile">
               <div className="flex justify-between items-center">
-                {containerEditing == item.ID ? (
-                  <div>
-                    {/* <input
+                <div>
+                  {containerEditing == item.ID ? (
+                    <div>
+                      {/* <input
                       className="banana edit-name"
                       value={item.Name}
                     ></input>
@@ -194,26 +196,28 @@ function App() {
                       className="banana edit-name"
                       value={item.Height}
                     ></input> */}
-                    <div className="midinput flex gap-5 items-center border-neutral-300">
-                      <label className="iCChild">Name</label>
-                      <input
-                        className="iCChild edit-name"
-                        value={iName}
-                        onChange={(e) => setIName(e.target.value)}
-                      />
+                      <div className="midinput flex gap-5 items-center border-neutral-300">
+                        <label className="iCChild">Name</label>
+                        <input
+                          className="iCChild edit-name"
+                          value={iName}
+                          onChange={(e) => setIName(e.target.value)}
+                        />
+                      </div>
+                      <div className="midinput flex gap-5 items-center border-neutral-300">
+                        <label className="iCChild">Height (cm)</label>
+                        <input
+                          className="iCChild edit-name"
+                          value={iH}
+                          onChange={(e) => setIH(e.target.value)}
+                        />
+                      </div>
                     </div>
-                    <div className="midinput flex gap-5 items-center border-neutral-300">
-                      <label className="iCChild">Height (cm)</label>
-                      <input
-                        className="iCChild edit-name"
-                        value={iH}
-                        onChange={(e) => setIH(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <p className="banana">{item.Name}</p>
-                )}
+                  ) : (
+                    <p className="banana">{item.Name}</p>
+                  )}
+                  Location: {item.Latitude}, {item.Longitude}
+                </div>
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => {
@@ -294,6 +298,15 @@ function App() {
           </div>
         ))}
       </div>
+      <APIProvider apiKey={import.meta.env.VITE_APIKEY}>
+        <Map
+          defaultCenter={{ lat: 53.54992, lng: 10.00678 }}
+          defaultZoom={10}
+          mapId="DEMO_MAP_ID"
+        >
+          <AdvancedMarker position={{ lat: 53.54992, lng: 10.00678 }} />
+        </Map>
+      </APIProvider>
     </div>
   );
 }
