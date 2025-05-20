@@ -13,26 +13,26 @@ function App() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState(0);
   const [newData, setNewData] = useState([
-    {
-      ID: 12345,
-      Name: "Set Name",
-      "Fill level": 30,
-      Latitude: 38,
-      Longitude: -122,
-      Height: 40,
-      Percent: 100 - Math.round((Number(30) / 40) * 100),
-      Editing: false,
-    },
-    {
-      ID: 54321,
-      Name: "Set Name",
-      "Fill level": 40,
-      Latitude: 40,
-      Longitude: -120,
-      Height: 50,
-      Percent: 100 - Math.round((Number(40) / 50) * 100),
-      Editing: false,
-    },
+    // {
+    //   ID: 12345,
+    //   Name: "Set Name",
+    //   "Fill level": 30,
+    //   Latitude: 38,
+    //   Longitude: -122,
+    //   Height: 40,
+    //   Percent: 100 - Math.round((Number(30) / 40) * 100),
+    //   Editing: false,
+    // },
+    // {
+    //   ID: 54321,
+    //   Name: "Set Name",
+    //   "Fill level": 40,
+    //   Latitude: 40,
+    //   Longitude: -120,
+    //   Height: 50,
+    //   Percent: 100 - Math.round((Number(40) / 50) * 100),
+    //   Editing: false,
+    // },
   ]);
   const [containerEditing, setContainerEditing] = useState(false);
   const [iH, setIH] = useState(0);
