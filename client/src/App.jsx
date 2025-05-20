@@ -1,41 +1,47 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { APIProvider, AdvancedMarker, Map } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  AdvancedMarker,
+  Map,
+  Marker,
+} from "@vis.gl/react-google-maps";
 
 function App() {
+  const [width, setWidth] = useState(window.innerWidth);
+
   const [count, setCount] = useState(0);
   const [data, setData] = useState(0);
   const [newData, setNewData] = useState([
-    // {
-    //   ID: 12345,
-    //   Name: "Set Name",
-    //   "Fill level": 30,
-    //   Latitude: 38,
-    //   Longitude: -122,
-    //   Height: 40,
-    //   Percent: 100 - Math.round((Number(30) / 40) * 100),
-    //   Editing: false,
-    // },
-    // {
-    //   ID: 54321,
-    //   Name: "Set Name",
-    //   "Fill level": 40,
-    //   Latitude: 40,
-    //   Longitude: -120,
-    //   Height: 50,
-    //   Percent: 100 - Math.round((Number(40) / 50) * 100),
-    //   Editing: false,
-    // },
+    {
+      ID: 12345,
+      Name: "Set Name",
+      "Fill level": 30,
+      Latitude: 38,
+      Longitude: -122,
+      Height: 40,
+      Percent: 100 - Math.round((Number(30) / 40) * 100),
+      Editing: false,
+    },
+    {
+      ID: 54321,
+      Name: "Set Name",
+      "Fill level": 40,
+      Latitude: 40,
+      Longitude: -120,
+      Height: 50,
+      Percent: 100 - Math.round((Number(40) / 50) * 100),
+      Editing: false,
+    },
   ]);
   const [containerEditing, setContainerEditing] = useState(false);
   const [iH, setIH] = useState(0);
   const [iName, setIName] = useState("");
-  // const [height, setHeight] = useState(false);
   const [containers, setContainers] = useState([]);
   useEffect(() => {
-    // setInterval(() => {
-    //   fetch("http://localhost:3000/data").then((data) => data.json().then(idk => changeFullness(idk)))
-    // }, 1000)
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+
+    console.log(width);
     setInterval(() => {
       fetch(
         // "https://script.google.com/macros/s/AKfycbysKrl6-8NcMOPytZgh-_dWFGPjl-GKabV2N98HzYGCZWJMy4oD3Mx7sDm1qT8ju--QWg/exec"
@@ -75,51 +81,13 @@ function App() {
         })
       );
     }, 1000);
-    // fetch("https://script.googleusercontent.com/a/macros/student.musd.org/echo?user_content_key=AehSKLhjZnj22rD_ZDASVfQ1VQiia1bBa8cOl_G650KyydNR62OwcxkvAX7u_77F1iRMUw9fVnjBG3oL1E-PwRwV_eqsmp5BJn2HKXrseEFinmMl33Hty9YW0P6GQn-XbuVw6sEcuN4U7aJMBDjSIhW_sBoueAfh8IddwJXBdLV-94aE-HTWyoKvQucxxDMeenuGajraZ5-nn5jekGFQMDQR8FznCDMOqiUV10QPJtR3xO2On1yCXCiEbIXF7EX5PWKB9dHXuQZhlkJGQSatfhJarr9vjoo0_5_LcXQ5mK6Fm8ihWBsKN9icM20pvaSmqQ&lib=MHx8C4qkf0f6Jg99vxj_yuhI1Gs6Nkp1M").then((data) => data.json().then(data => setNewData(data)))
   }, [data]);
-
-  // useEffect(() => {
-  //   console.log("banana")
-  //   if (!init.current) {
-  //     init.current = true;
-  //     return;
-  //   }
-  //   setContainers((containers) => {
-  //     console.log(containers)
-  //     if (containers) containers.unshift({data: 0, height: height})
-  //     return containers;
-  //   })
-  // }, [height])
-
-  // let percent = 100 - Math.round((Number(data) / height) * 100);
-  // if (percent < 0) percent = 0;
 
   const getPercent = (data, height) => {
     let percent = 100 - Math.round((Number(data) / height) * 100);
     if (percent < 0) percent = 0;
     return percent;
   };
-
-  // const changeFullness = (value) => {
-  //   setData(value);
-  //   setContainers((containers) => {
-  //     if (containers.length == 0) return [];
-  //     const copy = [...containers];
-  //     copy[0].data = value;
-  //     copy[0].percent = getPercent(value, copy[0].height);
-  //     return copy;
-  //   });
-  // };
-  // const changeFullness = (value) => {
-  //   setData(value);
-  //   setContainers((containers) => {
-  //     if (containers.length == 0) return [];
-  //     const copy = [...containers];
-  //     copy[0].data = value;
-  //     copy[0].percent = getPercent(value, copy[0].height);
-  //     return copy;
-  //   });
-  // };
 
   const calBtnFactory = (ID) => () => {
     setNewData((containers) => {
@@ -132,181 +100,156 @@ function App() {
     });
   };
 
-  // const addContainer = () => {
-  //   if (iH <= 0 || !iName) return;
-  //   setContainers((containers) => {
-  //     const copy = [...containers];
-  //     console.log(containers);
-  //     if (copy)
-  //       copy.unshift({
-  //         data: 0,
-  //         height: iH,
-  //         name: iName,
-  //         key: Math.random() * 10000,
-  //       });
-  //     console.log("updating");
-  //     console.log(containers);
-  //     setHeight(!height);
-  //     return copy;
-  //   });
-  //   setIH(0);
-  //   setIName("");
-  // };
-
   return (
     <div className="font-winky-sans">
       {/* <input onChange={(e) => changeFullness(e.target.value)} /> */}
       {/* <img src={title} width={300} /> */}
       <div className="w-full p-5 border-b border-neutral-300 flex justify-between items-center">
         <p className="text-3xl font-bold">Trash Management</p>
-        {/* <p className='text-2xl '>Containers</p> */}
       </div>
-      <header>Containers</header>
-      {/* <div>{newData[0]?.["Fill level"]}</div>
-      <div className='inputContainer flex flex-col items-center'>
-        <div className='midinput flex gap-5 items-center border-neutral-300'>
-          <label className='iCChild'>Name</label>
-          <input className='iCChild border' value={iName} onChange={(e) => setIName(e.target.value)} />
-        </div>
-        <div className='midinput flex gap-5 items-center border-neutral-300'>
-          <label className='iCChild'>Height (cm)</label>
-          <input className='iCChild border' value={iH} onChange={(e) => setIH(e.target.value)} />
-        </div>
-        <button className='iCChild w-full cursor-pointer' type='button' onClick={() => setIH(Math.floor(data))}>Calibrate</button>
-        <button className='iCChild w-full cursor-pointer' type='button' onClick={addContainer}>Add Container</button>
-      </div> */}
-      {/* {containers.map(item => (<div>
-        <p>{item.data}</p>
-        <p>{item.height}</p>
-      </div>))} */}
-      <div className="tile-grid">
-        {newData.map((item) => (
-          <div key={item.ID}>
-            {/* <div className='tile-out'> */}
-            <div className="tile">
-              <div className="flex justify-between items-center">
-                <div>
-                  {containerEditing == item.ID ? (
+      <div className="flex justify-between gap-2 flex-col md:flex-row">
+        <div className="flex flex-col m:w-[50%]">
+          <header>Containers</header>
+
+          <div className="tile-grid">
+            {newData.map((item) => (
+              <div key={item.ID}>
+                <div className="tile">
+                  <div className="flex justify-between items-center">
                     <div>
-                      {/* <input
-                      className="banana edit-name"
-                      value={item.Name}
-                    ></input>
-                    <input
-                      className="banana edit-name"
-                      value={item.Height}
-                    ></input> */}
-                      <div className="midinput flex gap-5 items-center border-neutral-300">
-                        <label className="iCChild">Name</label>
-                        <input
-                          className="iCChild edit-name"
-                          value={iName}
-                          onChange={(e) => setIName(e.target.value)}
-                        />
-                      </div>
-                      <div className="midinput flex gap-5 items-center border-neutral-300">
-                        <label className="iCChild">Height (cm)</label>
-                        <input
-                          className="iCChild edit-name"
-                          value={iH}
-                          onChange={(e) => setIH(e.target.value)}
-                        />
-                      </div>
+                      {containerEditing == item.ID ? (
+                        <div>
+                          <div className="midinput flex gap-5 items-center border-neutral-300">
+                            <label className="iCChild">Name</label>
+                            <input
+                              className="iCChild edit-name"
+                              value={iName}
+                              onChange={(e) => setIName(e.target.value)}
+                            />
+                          </div>
+                          <div className="midinput flex gap-5 items-center border-neutral-300">
+                            <label className="iCChild">Height (cm)</label>
+                            <input
+                              className="iCChild edit-name"
+                              value={iH}
+                              onChange={(e) => setIH(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="banana">{item.Name}</p>
+                      )}
+                      Location: {item.Latitude}, {item.Longitude}
                     </div>
-                  ) : (
-                    <p className="banana">{item.Name}</p>
-                  )}
-                  Location: {item.Latitude}, {item.Longitude}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button
-                    onClick={() => {
-                      if (containerEditing == item.ID) {
-                        setNewData((containers) => {
-                          const copy = [...containers];
-                          let i = 0;
-                          while (copy[i].ID !== item.ID) i++;
-                          copy[i].Height = Number(iH);
-                          copy[i].Name = iName;
-                          copy[i].Percent = getPercent(
-                            copy[i]["Fill level"],
-                            Number(iH)
-                          );
-                          return copy;
-                        });
-                        setContainerEditing(false);
-                      } else {
-                        setContainerEditing(item.ID);
-                        setIH(item.Height);
-                        setIName(item.Name);
-                      }
-                    }}
-                    type="button"
-                    className="banana edit-btn"
-                  >
-                    {containerEditing == item.ID ? "Done" : "Edit Container"}
-                  </button>
-                  {containerEditing == item.ID && (
-                    <button
-                      type="button"
-                      className="banana edit-btn"
-                      onClick={() => {
-                        setIH(item.Height);
-                        setIName(item.Name);
+                    <div className="flex flex-col gap-2">
+                      <button
+                        onClick={() => {
+                          if (containerEditing == item.ID) {
+                            setNewData((containers) => {
+                              const copy = [...containers];
+                              let i = 0;
+                              while (copy[i].ID !== item.ID) i++;
+                              copy[i].Height = Number(iH);
+                              copy[i].Name = iName;
+                              copy[i].Percent = getPercent(
+                                copy[i]["Fill level"],
+                                Number(iH)
+                              );
+                              return copy;
+                            });
+                            setContainerEditing(false);
+                          } else {
+                            setContainerEditing(item.ID);
+                            setIH(item.Height);
+                            setIName(item.Name);
+                          }
+                        }}
+                        type="button"
+                        className="banana edit-btn"
+                      >
+                        {containerEditing == item.ID
+                          ? "Done"
+                          : "Edit Container"}
+                      </button>
+                      {containerEditing == item.ID && (
+                        <button
+                          type="button"
+                          className="banana edit-btn"
+                          onClick={() => {
+                            setIH(item.Height);
+                            setIName(item.Name);
+                          }}
+                        >
+                          Reset
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div class="info">
+                    <div class="icon">
+                      <div class="side"></div>
+                      <div
+                        style={{ height: `${item.Percent}%` }}
+                        id="filling"
+                      ></div>
+                      <div class="side"></div>
+                    </div>
+                    <div
+                      id="text-info"
+                      style={{
+                        height: `${item.Percent > 0 ? item.Percent : 100}%`,
                       }}
                     >
-                      Reset
-                    </button>
-                  )}
-                </div>
-              </div>
-              <div class="info">
-                <div class="icon">
-                  <div class="side"></div>
-                  <div
-                    style={{ height: `${item.Percent}%` }}
-                    id="filling"
-                  ></div>
-                  <div class="side"></div>
-                </div>
-                <div
-                  id="text-info"
-                  style={{
-                    height: `${item.Percent > 0 ? item.Percent : 100}%`,
-                  }}
-                >
-                  <div
-                    class="bar"
-                    style={{ opacity: item.Percent > 0 ? "100" : "0" }}
-                  ></div>
-                  <div class="text-text">
-                    <div id="percentage">{item.Percent}% full</div>
-                    <div>
-                      {item.Height - Math.round(item["Fill level"]) > 0
-                        ? item.Height - Math.round(item["Fill level"])
-                        : 0}{" "}
-                      cm of {item.Height} cm
+                      <div
+                        class="bar"
+                        style={{ opacity: item.Percent > 0 ? "100" : "0" }}
+                      ></div>
+                      <div class="text-text">
+                        <div id="percentage">{item.Percent}% full</div>
+                        <div>
+                          {item.Height - Math.round(item["Fill level"]) > 0
+                            ? item.Height - Math.round(item["Fill level"])
+                            : 0}{" "}
+                          cm of {item.Height} cm
+                        </div>
+                        <button type="button" onClick={calBtnFactory(item.ID)}>
+                          Calibrate
+                        </button>
+                      </div>
                     </div>
-                    <button type="button" onClick={calBtnFactory(item.ID)}>
-                      Calibrate
-                    </button>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* </div> */}
+            ))}
           </div>
-        ))}
+        </div>
+        <div className="flex flex-col">
+          <header>Map</header>
+          <APIProvider apiKey={import.meta.env.VITE_APIKEY}>
+            <Map
+              style={{
+                width: width < 768 ? "calc(100vw - 80px)" : "calc(50vw - 88px)",
+                height: "50vh",
+              }}
+              defaultCenter={
+                newData.length > 0
+                  ? { lat: newData[0].Latitude, lng: newData[0].Longitude }
+                  : { lat: 37.451682, lng: -121.901221 }
+              }
+              defaultZoom={15}
+              gestureHandling={"greedy"}
+              disableDefaultUI={true}
+            >
+              {newData.map((item) => (
+                <Marker
+                  label={`${item.Name} | ${item.Percent}% Full`}
+                  position={{ lat: item.Latitude, lng: item.Longitude }}
+                ></Marker>
+              ))}
+            </Map>
+          </APIProvider>
+        </div>
       </div>
-      <APIProvider apiKey={import.meta.env.VITE_APIKEY}>
-        <Map
-          defaultCenter={{ lat: 53.54992, lng: 10.00678 }}
-          defaultZoom={10}
-          mapId="DEMO_MAP_ID"
-        >
-          <AdvancedMarker position={{ lat: 53.54992, lng: 10.00678 }} />
-        </Map>
-      </APIProvider>
     </div>
   );
 }
