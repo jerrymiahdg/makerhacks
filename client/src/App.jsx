@@ -108,7 +108,7 @@ function App() {
         <p className="text-3xl font-bold">Trash Management</p>
       </div>
       <div className="flex justify-between gap-2 flex-col md:flex-row">
-        <div className="flex flex-col m:w-[50%]">
+        <div className="flex flex-col md:w-[50%] border-r-0 md:border-r border-neutral-200">
           <header>Containers</header>
 
           <div className="tile-grid">
@@ -228,7 +228,12 @@ function App() {
           <APIProvider apiKey={import.meta.env.VITE_APIKEY}>
             <Map
               style={{
-                width: width < 768 ? "calc(100vw - 80px)" : "calc(50vw - 88px)",
+                width:
+                  width < 768
+                    ? "calc(100vw - 80px)"
+                    : width >= 1280
+                    ? "560px"
+                    : "calc(50vw - 88px)",
                 height: "50vh",
               }}
               defaultCenter={
